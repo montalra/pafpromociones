@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main>
+    <section class="full-width pageContent">
+        <section class="full-width text-center" style="padding: 40px 0;">
+            <div class="row justify-content-center">
+                <div class="col-md-15">
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Nueva Promoción</h1>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    
+                
+                                    <div class="mb-3">
+                                        {{ form.titulo.label_tag }}
+                                        {{ form.titulo }}
+                                    </div>
+                                    
+                
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            {{ form.fecha_inicio.label_tag }}
+                                            {{ form.fecha_inicio }}
+                                        </div>
+                                        <div class="col-6">
+                                            {{ form.fecha_fin.label_tag }}
+                                            {{ form.fecha_fin }}
+                                        </div>
+                                    </div>
+                                    
+
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            {{ form.tipo_promocion.label_tag }}
+                                            {{ form.tipo_promocion }}
+                                        </div>
+                                        <div class="col-6">
+                                            {{ form.canal_cliente.label_tag }}
+                                            {{ form.canal_cliente }}
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            {{ form.limite.label_tag }}
+                                            {{ form.limite }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form.descuento.label_tag }}
+                                            {{ form.descuento }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form.bonificacion_unidades.label_tag }}
+                                            {{ form.bonificacion_unidades }}
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                {{ form.articulo.label_tag }}
+                                                {{ form.articulo }}
+                                            </div>
+                                            <div class="col-md-6">
+                                                {{ form.articulo_bonificado.label_tag }}
+                                                {{ form.articulo_bonificado }}
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Agregar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-13">
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Lista de Promociones</h1>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-area me-1"></i>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="datatablesSimple">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Título</th>
+                                                <th>Fecha de Inicio</th>
+                                                <th>Fecha de Fin</th>
+                                                <th>Tipo de Promoción</th>
+                                                <th>Canal Cliente</th>
+                                                <th>Ariculo</th>
+                                                <th>Limite</th>
+                                                <th>Descuento</th>
+                                                <th>Producto Bonificado</th>
+                                                <th>Bonificacion</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for promocion in object_list %}
+                                            <tr>
+                                                <td>{{ promocion.promocion_id }}</td>
+                                                <td>{{ promocion.titulo }}</td>
+                                                <td>{{ promocion.fecha_inicio }}</td>
+                                                <td>{{ promocion.fecha_fin }}</td>
+                                                <td>{{ promocion.tipo_promocion.tipo_promocion_nombre }}</td>
+                                                <td>{{ promocion.canal_cliente.canal_cliente_descripcion }}</td>
+                                                <td>
+                                                    {% for articulo in promocion.articulo.all %}
+                                                        {{ articulo.nombre_articulo }}{% if not forloop.last %}, {% endif %}
+                                                    {% endfor %}
+                                                </td>
+                                                <td>{{ promocion.limite}}</td>
+                                                <td>{{ promocion.descuento }}</td>
+                                                <td>{{ promocion.articulo_bonificado }}</td>
+                                                <td>{{ promocion.bonificacion_unidades }}</td>
+                                                <td>
+                                                    <a href="{% url 'promocion_detalle' promocion_id=promocion.promocion_id  %}" class="btn btn-warning btn-sm">Detalle</a>
+                                                    <a href="{% url 'promocion_actualizar' promocion_id=promocion.promocion_id  %}" class="btn btn-warning btn-sm">Editar</a>
+                                                    <a href="{% url 'promocion_eliminar' promocion_id=promocion.promocion_id  %}" class="btn btn-danger btn-sm">Eliminar</a>
+                                                </td>
+                                            </tr>
+                                    
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+

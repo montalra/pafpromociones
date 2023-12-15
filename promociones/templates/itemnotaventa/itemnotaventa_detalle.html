@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+  <main>
+    <section class="full-width pageContent">
+      <section class="full-width text-center" style="padding: 40px 0;">
+        <div class="container">
+          <h1 class="mt-4">Detalles de Item de Nota de Venta</h1>
+          <div class="card mb-4">
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                      <td><strong>ID:</strong></td>
+                      <td>{{ itemnotaventa.item_id }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Nota de Venta:</strong></td>
+                      <td>{{ itemnotaventa.nota_venta }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Artículo:</strong></td>
+                      <td>{{ itemnotaventa.articulo.nombre_articulo }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Precio Unitario:</strong></td>
+                      <td>{{ itemnotaventa.precio_unitario }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Cantidad:</strong></td>
+                      <td>{{ itemnotaventa.cantidad }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Total Bruto del Item:</strong></td>
+                      <td>{{ itemnotaventa.total_item_bruto }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Factor de Descuento:</strong></td>
+                      <td>{{ itemnotaventa.factor_descuento }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Descuento Unitario:</strong></td>
+                      <td>{{ itemnotaventa.descuento_unitario }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Total del Item:</strong></td>
+                      <td>{{ itemnotaventa.total_item }}</td>
+                    </tr>
+                  </table>
+
+              <!-- Display associated Promocion details -->
+              {% if itemnotaventa.promocion_aplicada %}
+                <h2>Promoción Asociada</h2>
+                <ul>
+                  <li><strong>Título:</strong> {{ itemnotaventa.promocion_aplicada.titulo }}</li>
+                  <li><strong>Fecha de Inicio:</strong> {{ itemnotaventa.promocion_aplicada.fecha_inicio }}</li>
+                  <li><strong>Fecha de Fin:</strong> {{ itemnotaventa.promocion_aplicada.fecha_fin }}</li>
+                  <li><strong>Tipo de Promoción:</strong> {{ itemnotaventa.promocion_aplicada.tipo_promocion.get_tipo_promocion_display }}</li>
+                  <li><strong>Canal Cliente:</strong> {{ itemnotaventa.promocion_aplicada.canal_cliente.canal_cliente_descripcion }}</li>
+                  <li><strong>Artículos:</strong>
+                      <ul>
+                        {% for articulo in itemnotaventa.promocion_aplicada.articulo.all %}
+                          <li>{{ articulo.nombre_articulo }}</li>
+                        {% endfor %}
+                      </ul>
+                    </li>
+                  <li><strong>Limite:</strong> {{ itemnotaventa.promocion_aplicada.limite }}</li>
+                  <li><strong>Descuento:</strong> {{ itemnotaventa.promocion_aplicada.descuento }}</li>
+                  <li><strong>Producto Bonificado:</strong> {{ itemnotaventa.promocion_aplicada.articulo_bonificado }}</li>
+                  <li><strong>Bonificación:</strong> {{ itemnotaventa.promocion_aplicada.bonificacion_unidades }}</li>
+                </ul>
+              {% else %}
+                <p>No hay una promoción asociada a este item.</p>
+              {% endif %}
+            </div>
+          </div>
+          <a href="{% url 'nuevo_itemnotaventa' %}" class="btn btn-primary">Volver</a>
+        </div>
+      </section>
+    </section>
+  </main>
+{% endblock %}

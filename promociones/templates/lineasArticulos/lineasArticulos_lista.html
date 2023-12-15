@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main>
+    <section class="full-width pageContent">
+        <section class="full-width text-center" style="padding: 40px 0;">
+            <div class="row justify-content-center">
+                <div class="col-md-15">
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Lista de Lineas de Articulos</h1>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-area me-1"></i>
+                                <a class="btn btn-primary col-2 btn-sm" href="{% url 'nuevo_lineasArticulos' %}"> Agregar  </a>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="datatablesSimple">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Código de Línea</th>
+                                                <th>Descripción de Línea</th>
+                                                <th>Grupo</th>
+                                                <th>Activo</th>
+                                                <th>Responsable de Línea</th>
+                                                <th>Opciones</th>
+                                              </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for lineas_articulos in object_list %}
+                                            <tr>
+                                                
+                                                <td>{{ lineas_articulos.linea_id }}</td>
+                                                <td>{{ lineas_articulos.codigo_linea }}</td>
+                                                <td>{{ lineas_articulos.linea_descripcion }}</td>
+                                                <td>{{ lineas_articulos.grupo.grupo_descripcion }}</td>
+                                                <td>{% if lineas_articulos.activo %}Activo{% else %}Inactivo{% endif %}</td>
+                                                <td>{{ lineas_articulos.responsable_linea.nombres }}</td>
+                                              <td>
+                                                <a href="{% url 'lineasArticulos_actualizar' linea_id=lineas_articulos.linea_id %}" class="btn btn-warning btn-sm">Editar</a>
+                                                <a href="{% url 'lineasArticulos_eliminar' linea_id=lineas_articulos.linea_id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                                              </td>
+                                            </tr>
+                                          {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+</main>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+  <main>
+    <section class="full-width pageContent">
+      <section class="full-width text-center" style="padding: 40px 0;">
+        <div class="container">
+          <h1 class="mt-4">Detalles de Promoción</h1>
+          <div class="card mb-4">
+            <div class="card-body">
+              <ul>
+                <li><strong>Título:</strong> {{ promocion.titulo }}</li>
+                <li><strong>Fecha de Inicio:</strong> {{ promocion.fecha_inicio }}</li>
+                <li><strong>Fecha de Fin:</strong> {{ promocion.fecha_fin }}</li>
+                <li><strong>Tipo de Promoción:</strong> {{ promocion.get_tipo_promocion_display }}</li>
+                <li><strong>Canal Cliente:</strong> {{ promocion.canal_cliente.canal_cliente_descripcion }}</li>
+                <li><strong>Artículos:</strong>
+                    <ul>
+                      {% for articulo in promocion.articulo.all %}
+                        <li>{{ articulo.nombre_articulo }}</li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                <li><strong>Limite:</strong> {{ promocion.limite }}</li>
+                <li><strong>Descuento:</strong> {{ promocion.descuento }}</li>
+                <li><strong>Producto Bonificado:</strong> {{ promocion.articulo_bonificado }}</li>
+                <li><strong>Bonificación:</strong> {{ promocion.bonificacion_unidades }}</li>
+
+              </ul>
+            </div>
+          </div>
+          <a href="{% url 'nuevo_promocion' %}" class="btn btn-primary">Volver</a>
+        </div>
+      </section>
+    </section>
+  </main>
+{% endblock %}

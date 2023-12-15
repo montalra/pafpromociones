@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <main>
+        <section class="full-width pageContent">
+            <section class="full-width text-center" style="padding: 40px 0;">
+                <div class="row justify-content-center">
+                    <div class="col-md-13">
+                        <div class="container-fluid px-4">
+                            <h1 class="mt-4">Lista de Condicion Venta</h1>
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-area me-1"></i>
+                                    <a class="btn btn-primary col-2 btn-sm" href="{% url 'nuevo_cventa' %}">Agregar</a>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="datatablesSimple">
+                                            <thead>
+                                                <tr>
+                                                    <th>Condicion Venta</th>
+                                                    <th>Descripcion</th>
+                                                    <th>Genera Credito</th>  
+                                                    <th>Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for condiciones_venta in object_list %}
+                                                    <tr>
+                                                        <td>{{ condiciones_venta.condicion_venta }}</td>
+                                                        <td>{{ condiciones_venta.descripcion }}</td>
+                                                        <td>{{ condiciones_venta.genera_credito }}</td>
+                                                        <td>
+                                                            <a href="{% url 'cventa_actualizar' condicion_venta=condiciones_venta.condicion_venta %}"
+                                                                class="btn btn-warning btn-sm">Editar</a>
+                                                            <a href="{% url 'cventa_eliminar' condicion_venta=condiciones_venta.condicion_venta %}"
+                                                                class="btn btn-danger btn-sm">Eliminar</a>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+{% endblock %}

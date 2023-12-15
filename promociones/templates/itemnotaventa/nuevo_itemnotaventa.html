@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <section class="full-width pageContent">
+        <section class="full-width text-center" style="padding: 40px 0;">
+            <div class="row justify-content-center">
+                <div class="col-md-15">
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Nuevo Item de Nota de Venta</h1>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            {{ form.nota_venta.label_tag }}
+                                            {{ form.nota_venta }}
+                                        </div>
+                                        <div class="col-6">
+                                            {{ form.nro_item.label_tag }}
+                                            {{ form.nro_item }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-4">
+                                            {{ form.articulo.label_tag }}
+                                            {{ form.articulo }}
+                                        </div>
+                                        <div class="col-4">
+                                            {{ form.precio_unitario.label_tag }}
+                                            {{ form.precio_unitario }}
+                                        </div>
+                                        <div class="col-4">
+                                            {{ form.cantidad.label_tag }}
+                                            {{ form.cantidad }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="offset-md-4 col-md-4">
+                                            {{ form.promocion_aplicada.label_tag }}
+                                            {{ form.promocion_aplicada }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-4">
+                                            {{ form.total_item_bruto.label_tag }}
+                                            {{ form.total_item_bruto }}
+                                        </div>
+                                        <div class="col-4">
+                                            {{ form.factor_descuento.label_tag }}
+                                            {{ form.factor_descuento }}
+                                        </div>
+                                        <div class="col-4">
+                                            {{ form.descuento_unitario.label_tag }}
+                                            {{ form.descuento_unitario }}
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="offset-md-4 col-md-4">
+                                            {{ form.total_item.label_tag }}
+                                            {{ form.total_item }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="offset-md-4 col-md-4">
+                                            {{ form.es_bonificacion.label_tag }}
+                                            {{ form.es_bonificacion }}
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Agregar</button>
+                                </form>                                                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-15">
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Lista de Item Nota Venta</h1>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-area me-1"></i>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="datatablesSimple">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nota Venta</th>
+                                                <th>Nro Item</th>
+                                                <th>Articulo</th>
+                                                <th>Precio Unitario</th>
+                                                <th>Cantidad</th>
+                                                <th>Total Item Bruto</th>
+                                                <th>Factor Descuento </th>
+                                                <th>Descuento Unitario </th>
+                                                <th>Total Item</th>
+                                                <th>Bonificación</th>
+                                                <th>Opciones</th>
+                                            </tr>
+                                        </thead>
+                    
+                                        <tbody>
+                                            {% for itemnotaventa in object_list %}
+                                            <tr>
+                    
+                                                <td>{{itemnotaventa.item_id }}</td>
+                                                <td>{{itemnotaventa.nota_venta.nro_pedido}}</td>
+                                                <td>{{itemnotaventa.nro_item}}</td>
+                                                <td>{{itemnotaventa.articulo.nombre_articulo}}</td>
+                                                <td>{{itemnotaventa.precio_unitario}}</td>
+                                                <td>{{itemnotaventa.cantidad}}</td>
+                                                <td>{{itemnotaventa.total_item_bruto }}</td>
+                                                <td>{{itemnotaventa.factor_descuento }}</td>
+                                                <td>{{itemnotaventa.descuento_unitario }}</td>
+                                                <td>{{itemnotaventa.total_item }}</td>
+                                                <td>{{itemnotaventa.es_bonificacion }}</td>
+                                                <td>
+                                                    <a href="{% url 'itemnotaventa_detalle' item_id=itemnotaventa.item_id  %}" class="btn btn-warning btn-sm">Detalle</a>
+                                                    <a href="{% url 'itemnotaventa_actualizar' item_id=itemnotaventa.item_id %}"
+                                                        class="btn btn-warning btn-sm">Editar</a>
+                                                    <a href="{% url 'itemnotaventa_eliminar' item_id=itemnotaventa.item_id %}"
+                                                        class="btn btn-danger btn-sm">Eliminar</a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    
+                                    </table> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+         </div>
+        </section>
+    </section>
+
+    
+</main>
+
+<script>
+    $(document).ready(function () {
+        function calcularTotalItem() {
+            var precioUnitario = parseFloat($('#id_precio_unitario').val()) || 0;
+            var cantidad = parseInt($('#id_cantidad').val()) || 0;
+
+            var promocionDescuento = parseFloat($('#id_promocion_aplicada').find(':selected').data('descuento')) || 0;
+
+            $('#id_factor_descuento').val(promocionDescuento);
+
+            var totalItemBruto = precioUnitario * cantidad;
+            var descuentoUnitario = totalItemBruto * promocionDescuento;
+            var totalItem = totalItemBruto - descuentoUnitario;
+
+            $('#id_total_item_bruto').val(totalItemBruto.toFixed(2));
+            $('#id_descuento_unitario').val(descuentoUnitario.toFixed(2));
+            $('#id_total_item').val(totalItem.toFixed(2));
+        }
+
+        $('#id_total_item_bruto,#id_factor_descuento, #id_descuento_unitario, #id_total_item').prop('readonly', true);
+
+        $('#id_precio_unitario, #id_cantidad, #id_promocion_aplicada').change(function () {
+            calcularTotalItem();
+        });
+
+        calcularTotalItem();
+    });
+</script>
+
+
+
+{% endblock %}

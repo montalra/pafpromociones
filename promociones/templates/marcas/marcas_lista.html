@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main>
+    <section class="full-width pageContent">
+        <section class="full-width text-center" style="padding: 40px 0;">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Lista de Marcas</h1>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-area me-1"></i>
+                                <a class="btn btn-primary col-2 btn-sm" href="{% url 'nuevo_marcas' %}"> Agregar  </a>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="datatablesSimple">
+                                        <thead>
+                                            <tr>
+                                                <th>Codigo</th>
+                                                <th>Nombre de Marca</th>
+                                                <th>Opciones</th>
+                                              </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for marcas in object_list %}
+                                            <tr>
+                                                
+                                              <td>{{marcas.codigo_marca}}</td>
+                                              <td>{{marcas.marca_nombre }}</td>
+                                              <td>
+                                                <a href="{% url 'marcas_actualizar' marca_id=marcas.marca_id %}" class="btn btn-warning btn-sm">Editar</a>
+                                                <a href="{% url 'marcas_eliminar' marca_id=marcas.marca_id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                                              </td>
+                                            </tr>
+                                          {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+        
+        
+                </div>
+            </div>
+        </section>
+    </section>
+
+   
+
+
+</main>
+
+{% endblock %}

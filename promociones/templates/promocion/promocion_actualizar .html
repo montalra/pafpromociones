@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main>
+    <section class="full-width pageContent">
+        <section class="full-width text-center" style="padding: 40px 0;">
+            <div class="row justify-content-center">
+                <div class="col-md-15">
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Nueva Promoción</h1>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    
+                                    <!-- Título -->
+                                    <div class="mb-3">
+                                        {{ form.titulo.label_tag }}
+                                        {{ form.titulo }}
+                                    </div>
+                                    
+                                    <!-- Fecha de Inicio y Fecha de Fin -->
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            {{ form.fecha_inicio.label_tag }}
+                                            {{ form.fecha_inicio }}
+                                        </div>
+                                        <div class="col-6">
+                                            {{ form.fecha_fin.label_tag }}
+                                            {{ form.fecha_fin }}
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Tipo de Promoción y Canal Cliente -->
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            {{ form.tipo_promocion.label_tag }}
+                                            {{ form.tipo_promocion }}
+                                        </div>
+                                        <div class="col-6">
+                                            {{ form.canal_cliente.label_tag }}
+                                            {{ form.canal_cliente }}
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            {{ form.limite.label_tag }}
+                                            {{ form.limite }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form.descuento.label_tag }}
+                                            {{ form.descuento }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form.bonificacion_unidades.label_tag }}
+                                            {{ form.bonificacion_unidades }}
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                {{ form.articulo.label_tag }}
+                                                {{ form.articulo }}
+                                            </div>
+                                            <div class="col-md-6">
+                                                {{ form.articulo_bonificado.label_tag }}
+                                                {{ form.articulo_bonificado }}
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Agregar</button>
+                                        <button type="submit " class="btn btn-danger btn-col-2 btn-sm">
+                                            <a class="btn btn-danger btn-col-2 btn-sm" href="{% url 'nuevo_promocion' %}">Regresar</a>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </section>
+
+
+</main>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+¡

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main>
+    <section class="full-width pageContent">
+        <section class="full-width text-center" style="padding: 40px 0;">
+            <div class="row justify-content-center">
+                <div class="col-md-15">
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Lista de Nota de Venta</h1>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-area me-1"></i>
+                                <a class="btn btn-primary col-2 btn-sm" href="{% url 'nuevo_notaventa' %}"> Agregar </a>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="datatablesSimple">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Empresa</th>
+                                                <th>Sucursal</th>
+                                                <th>Número de Pedido </th>
+                                                <th>Fecha de Pedido </th>
+                                                <th>Tipo de Pedido</th>
+                                                <th>Cliente </th>
+                                                <th>Condición de Venta</th>   
+                                                <th>Plazo</th>      
+                                                <th>Tipo de Documento</th>    
+                                                <th>Total de Pedido</th>                         
+                                                <th>Opciones</th>
+                                            </tr>
+                                        </thead>
+                    
+                                        <tbody>
+                                            {% for notaventa in object_list %}
+                                            <tr>
+                                                <td>{{notaventa.nota_venta_id}}</td>
+                                                <td>{{notaventa.empresa.razon_social}}</td>
+                                                <td>{{notaventa.sucursal.nombre_comercial}}</td>
+                                                <td>{{notaventa.nro_pedido}}</td>
+                                                <td>{{notaventa.fecha_pedido}}</td>
+                                                <td>{{notaventa.tipo_pedido.tipo_pedido_nombre}}</td>
+                                                <td>{{notaventa.cliente.nombre_razon_social}}</td>
+                                                <td>{{notaventa.condicion_venta.descripcion}}</td>
+                                                <td>{{notaventa.plazo}}</td>
+                                                <td>{{notaventa.tipo_documento}}</td>
+                                                <td>{{notaventa.total_pedido}}</td>
+
+
+                                                <td>
+                                                    <a href="{% url 'notaventa_actualizar' nota_venta_id=notaventa.nota_venta_id %}"
+                                                        class="btn btn-warning btn-sm">Editar</a>
+                                                    <a href="{% url 'notaventa_eliminar' nota_venta_id=notaventa.nota_venta_id %}"
+                                                        class="btn btn-danger btn-sm">Eliminar</a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    
+                                    </table> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+    </section>
+    
+</main>
+
+{% endblock %}

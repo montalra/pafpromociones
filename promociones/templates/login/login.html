@@ -1,0 +1,56 @@
+{% extends 'base_generic.html' %}
+{% block title %} Login {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<section class="full-width pageContent">
+    <section class="full-width text-center" style="padding: 40px 0;">
+        <div class="login-box">
+            <div class="login-logo">
+              <b>Sistema de Inventario</a>
+            </div>
+            <div class="card">
+                <div class="card-body login-card-body">
+                  <p class="login-box-msg">Inicie sesión para comenzar su sesión</p>
+                  <form method="post">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <input type="email" name="email" class="form-control" placeholder="Correo electrónico" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                              <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" name="password" class="form-control" placeholder="Contraseña" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                        </div>
+                    </div>
+                  </form>
+                  <hr></hr>
+                  <p class="mb-0">
+                    <a href="{% url 'nuevo_usuario' %}" class="text-center">Registrar Usuario</a>
+                  </p>
+                </div>
+            </div>   
+        </div>
+    </section>
+</section>
+   
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<main>
+    <section class="full-width pageContent">
+        <section class="full-width text-center" style="padding: 40px 0;">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Actualizar Usuario</h1>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <form method="POST" class="post-form">
+                                    {% csrf_token %}
+                                    {{ form | crispy }}
+                                    <button type="submit" class="save btn btn-primary col-3">Actualizar</button>
+                                    <button type="submit " class="btn btn-danger btn-col-2 btn-sm">
+                                        <a class="btn btn-danger btn-col-2 btn-sm" href="{% url 'usuario_lista' %}">Regresar</a>
+                                    </button>
+                  
+                                </form>
+                
+                            </div>
+                        </div>
+                        
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+    </section>   
+ 
+</main>
+{% endblock %}
